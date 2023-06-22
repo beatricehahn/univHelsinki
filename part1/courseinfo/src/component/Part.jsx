@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 // renders name and number of exercises of a single part
-const Part = ({part, exercise}) => {
+const Part = ({name, exercises}) => {
     return (
-        <p>{part}: {exercise}</p>
+        <p>{name}: {exercises}</p>
     );
 };
 
