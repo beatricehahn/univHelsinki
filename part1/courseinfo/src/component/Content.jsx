@@ -2,12 +2,12 @@
 import Part from "./Part";
 
 // renders three Part components
-const Content = ({...props}) => {
+const Content = ({courses}) => {
     return (
         <div>
-            <Part name={props.part1.name} exercises={props.part1.exercises} />
-            <Part name={props.part2.name} exercises={props.part2.exercises} />
-            <Part name={props.part3.name} exercises={props.part3.exercises} />
+            <Part name={courses[0].name} exercises={courses[0].exercises} />
+            <Part name={courses[1].name} exercises={courses[1].exercises} />
+            <Part name={courses[2].name} exercises={courses[2].exercises} />
         </div>
     );
 };
