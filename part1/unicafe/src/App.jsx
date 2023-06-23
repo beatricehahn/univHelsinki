@@ -3,15 +3,32 @@ import Statistics from './components/Statistics'
 import './App.css'
 
 const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+  const [clicks, setClicks] = useState({
+    good: 0, 
+    neutral: 0,
+    bad: 0,
+    total: 0
+  })
 
-  const handleGood = () => setGood(good+1)
-  const handleNeutral = () => setNeutral(neutral+1)
-  const handleBad = () => setBad(bad+1)
+  const handleGood = () => 
+    setClicks({
+      ...clicks,
+      good: clicks.good + 1, 
+      total: clicks.total + 1,
+    })
 
+  const handleNeutral = () => 
+    setClicks({
+      ...clicks, 
+      neutral: clicks.neutral + 1, 
+      total: clicks.total + 1
+    })
+  const handleBad = () => 
+    setClicks({
+      ...clicks, 
+      bad: clicks.bad + 1, 
+      total: clicks.total + 1
+    })
 
   return (
     <div>
@@ -22,7 +39,7 @@ const App = () => {
 
       <br/>
 
-      <Statistics good={good} neutral={neutral} bad={bad}/>
+      <Statistics clicks={clicks}/>
 
     </div>
   )
