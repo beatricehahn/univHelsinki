@@ -16,6 +16,28 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
 
+  // votes object for each anecdote
+  const [votes, setVotes] = useState(
+    {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0
+    }
+  )
+
+  const handleVote = () => {
+    const copy = {...votes}
+    copy[selected] += 1
+
+    setVotes(copy)
+    console.log('votes', votes[selected])
+  }
+
   const generateRandom = () => {
     const min = Math.ceil(0)
     const max = Math.floor(anecdotes.length - 1)
@@ -30,6 +52,9 @@ const App = () => {
     <div>
       <h3>{anecdotes[selected]}</h3>
       <br />
+      <h4>has {votes[selected]} votes</h4>
+
+      <button onClick={handleVote}>Vote</button>
       <button onClick={handleNext}>Next anecdote</button>
     </div>
   )
