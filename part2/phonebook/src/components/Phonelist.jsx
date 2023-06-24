@@ -1,0 +1,11 @@
+const Phonelist = ({persons}) => {
+    return (
+        <ul>
+            {
+                persons.map(person => <li key={person.name}>{person.name}</li>)
+            }
+        </ul>
+    )
+}
+
+export default Phonelist
