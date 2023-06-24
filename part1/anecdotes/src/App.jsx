@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import CurrentAnecdote from './components/CurrentAnecdote'
+import TopAnecdote from './components/TopAnecdote'
+
 import './App.css'
 
 const App = () => {
@@ -15,47 +18,60 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0, 0, 0])
+  // top is the index of the anecdote with most votes
+  const [top, setTop] = useState(-1)
+  const [mostVotes, setMostVotes] = useState(0)
 
-  // votes object for each anecdote
-  const [votes, setVotes] = useState(
-    {
-      0: 0,
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0,
-      7: 0
-    }
-  )
-
+  // update vote count and current top anecdote's index
   const handleVote = () => {
-    const copy = {...votes}
+    // copy all values from votes array 
+    const copy = votes.map(val => val)
+
+    // increment array for this current index
     copy[selected] += 1
 
+    console.log('copy array:', copy)
+
+    // update state of entire votes array
     setVotes(copy)
-    console.log('votes', votes[selected])
-  }
 
+    // update state of mostVotes by finding the max value in copy array
+    const maxVotes = Math.max(...copy)
+    setMostVotes(maxVotes)
+
+    console.log('Most votes recorded on any anecdote: ',maxVotes)
+
+    // find index of the anecdote with the highest vote count
+    const currTop = copy.indexOf(maxVotes)
+
+    // update state of current top
+    setTop(currTop) 
+
+    console.log('Index with highest number of votes is ', currTop)
+  }
+  
+  // this function generates the random number used as the index for anecdotes array
   const generateRandom = () => {
-    const min = Math.ceil(0)
-    const max = Math.floor(anecdotes.length - 1)
-    return Math.floor(Math.random() * (max - min + 1) + min)
+      const min = 0
+      const max = Math.floor(anecdotes.length - 1)
+      return Math.floor(Math.random() * (max - min + 1) + min)
   }
-
+    
+  // renders the next anecdote, randomly determined from anecdotes array
   const handleNext = () => {
     setSelected(generateRandom())
   }
 
   return (
     <div>
-      <h3>{anecdotes[selected]}</h3>
-      <br />
-      <h4>has {votes[selected]} votes</h4>
+      <CurrentAnecdote anecdotes={anecdotes} selected={selected}/>
+      <p>has {votes[selected]} votes</p>
 
       <button onClick={handleVote}>Vote</button>
       <button onClick={handleNext}>Next anecdote</button>
+
+      <TopAnecdote anecdotes={anecdotes} top={top} mostVotes={mostVotes}/>
     </div>
   )
 }
