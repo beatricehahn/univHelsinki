@@ -1,10 +1,15 @@
 const Phonelist = ({persons}) => {
     return (
-        <ul>
+        <div>
+            <h2>Numbers</h2>
+            <ul>
             {
-                persons.map(person => <li key={person.name}>{person.name}</li>)
+                persons.map(person => 
+                    <li key={person.name}>{person.name} {person.number}</li>
+                )
             }
         </ul>
+        </div>
     )
 }
 
