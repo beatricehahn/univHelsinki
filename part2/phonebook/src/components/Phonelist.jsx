@@ -5,6 +5,9 @@ const Phonelist = ({persons}) => {
         contactService
             .del(id)
             .then(res => console.log('delete user', res))
+            .catch(error => {
+                alert('This person was unable to be deleted')
+            })
         // contactService.getAll()
     }
     

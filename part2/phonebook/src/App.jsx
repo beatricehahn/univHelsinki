@@ -77,6 +77,9 @@ const App = () => {
             .then((personObject) => {
               setPersons(persons.map(person => person.number != oldNumber ? person : personObject))
             })
+            .catch(error => {
+              alert(`${personObject.name} was already deleted from server`)
+            })
           oldNumber = '' // reset old
 
           setMessage('Updated phone number')
