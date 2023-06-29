@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Phonelist from './components/Phonelist'
 import SearchResults from './components/SearchResults'
 import Form from './components/Form'
+import Notification from './components/Notification'
 
 import contactService from './services/contacts'
 
@@ -10,6 +11,7 @@ import './App.css'
 
 const App = () => {
   const [persons, setPersons] = useState([])
+  const [message, setMessage] = useState(null)
 
   // fetch mock server data and set persons info
   useEffect(() => {
@@ -72,10 +74,15 @@ const App = () => {
           
           contactService
             .update(id, personObject)
-            .then(() => {
+            .then((personObject) => {
               setPersons(persons.map(person => person.number != oldNumber ? person : personObject))
             })
           oldNumber = '' // reset old
+
+          setMessage('Updated phone number')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         }
       }
     } else {
@@ -83,7 +90,11 @@ const App = () => {
       contactService
         .create(personObject)
         .then(() => setPersons(persons.concat(personObject)))
-      
+
+      setMessage('Added new contact')
+      setTimeout(() => {
+        setMessage(null)
+      }, 4000)
     }
     setNewName('')
     setNewNumber('')
@@ -97,6 +108,8 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+
+      <Notification message={message} />
 
       <SearchResults 
         persons={persons} 
