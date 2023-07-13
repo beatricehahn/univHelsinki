@@ -92,7 +92,7 @@ const App = () => {
       // send new contact info to backend
       contactService
         .create(personObject)
-        .then(personObject => {
+        .then(() => {
           setPersons(persons.concat(personObject))
           //setMessage('Added new contact')
         })
